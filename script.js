@@ -19,9 +19,16 @@ const fecthIpInfo = (ip) => {
 };
 
 const $form = document.querySelector('#form');
+const $input = document.querySelector('#ip');
+const $submit = document.querySelector('#submit');
 
-$form.addEventListener('submit', (event) => {
+$form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const $input = document.querySelector('#ip');
-  fecthIpInfo($input.value);
+  const { value } = $input;
+  if (!value) return;
+
+  $submit.setAttribute('disabled', '');
+  $submit.setAttribute('aria-busy', 'true');
+
+  const ipInfo = await fecthIpInfo(value);
 });
